@@ -7,6 +7,9 @@ import mongoose, { Schema } from 'mongoose';
 // took bare bones from SA7 poll PostModel
 const PostSchema = new Schema({
   title: String,
+  tags: String,
+  contents: String,
+  cover_url: String,
 }, {
   toJSON: {
     virtuals: true,

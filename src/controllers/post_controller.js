@@ -1,17 +1,69 @@
 import Post from '../models/post_model';
 
 export const createPost = (req, res) => {
-  res.send('post should be created here');
+  const post = new Post();
+  post.title = req.body.title;
+  post.tags = req.body.tags;
+  post.contents = req.body.contents;
+  post.cover_url = req.body.cover_url;
+  post.save()
+    .then((result) => {
+      // res.json({ message: 'Post created!' });
+      console.log('we created a new post');
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
+
 export const getPosts = (req, res) => {
-  res.send('posts should be returned');
+  // got this from mongoosejs docs online
+  Post.find({})
+    .then((result) => {
+      // res.json({ message: 'found all the posts!' });
+      console.log('got all posts1');
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
+
 export const getPost = (req, res) => {
-  res.send('single post looked up');
+  Post.findOne({ _id: req.params.id })
+    .then((result) => {
+      console.log('got specific post');
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
+
 export const deletePost = (req, res) => {
-  res.send('delete a post here');
+  Post.findOne({ _id: req.params.id }).remove()
+    .then((result) => {
+      console.log('deleted post');
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
+
 export const updatePost = (req, res) => {
-  res.send('update a post here');
+  return Post.findOne({ _id: req.params.id })
+    .then((result) => {
+      result.title = req.body.title;
+      result.tags = req.body.tags;
+      result.contents = req.body.contents;
+      result.cover_url = req.body.cover_url;
+      result.save();
+    })
+    .then((result) => {
+      console.log('updated post!');
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 };
