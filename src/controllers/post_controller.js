@@ -10,7 +10,6 @@ export const createPost = (req, res) => {
     .then((result) => {
       // res.json({ message: 'Post created!' });
       res.json('another post created');
-      console.log('we created a new post');
     })
     .catch((error) => {
       res.status(500).json({ error });
@@ -44,7 +43,7 @@ export const getPost = (req, res) => {
 export const deletePost = (req, res) => {
   Post.findOne({ _id: req.params.id }).remove()
     .then((result) => {
-      console.log('deleted post');
+      res.json('another post deleted');
     })
     .catch((error) => {
       res.status(500).json({ error });
