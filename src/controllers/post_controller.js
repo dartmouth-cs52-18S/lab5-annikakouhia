@@ -9,6 +9,7 @@ export const createPost = (req, res) => {
   post.save()
     .then((result) => {
       // res.json({ message: 'Post created!' });
+      res.json('another post created');
       console.log('we created a new post');
     })
     .catch((error) => {
