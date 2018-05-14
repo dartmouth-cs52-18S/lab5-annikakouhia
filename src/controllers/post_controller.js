@@ -6,6 +6,7 @@ export const createPost = (req, res) => {
   post.tags = req.body.tags;
   post.contents = req.body.contents;
   post.cover_url = req.body.cover_url;
+  post.author = req.user;
   post.save()
     .then((result) => {
       // res.json({ message: 'Post created!' });
@@ -41,7 +42,7 @@ export const getPost = (req, res) => {
 };
 
 export const deletePost = (req, res) => {
-  Post.findOne({ _id: req.params.id }).remove()
+  Post.findOne({ _id: req.params.id, author: req.user }).remove()
     .then((result) => {
       res.json('another post deleted');
     })
@@ -51,7 +52,7 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-  return Post.findOne({ _id: req.params.id })
+  return Post.findOne({ _id: req.params.id, author: req.user })
     .then((result) => {
       result.title = req.body.title;
       result.tags = req.body.tags;

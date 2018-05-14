@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -7,9 +8,12 @@ import mongoose from 'mongoose';
 // at top of server.js
 import apiRouter from './router';
 
+
+dotenv.config({ silent: true });
 // DB Setup
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/cs52poll';
-mongoose.connect(mongoURI);
+// const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/cs52poll';
+const MONGODB_URI = 'mongodb://heroku_vk8rz5hs:j4e3ivcke092pon0ta4j9emcsr@ds117250.mlab.com:17250/heroku_vk8rz5hs';
+mongoose.connect(MONGODB_URI);
 // set mongoose promises to es6 default
 mongoose.Promise = global.Promise;
 
