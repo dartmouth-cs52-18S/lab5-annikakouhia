@@ -11,7 +11,8 @@ export const signin = (req, res, next) => {
 
 export const signup = (req, res, next) => {
   console.log('back in lab5');
-  console.log(req.body);
+  console.log(req.body.email);
+  console.log(req.body.password);
   const email = req.body.email;
   // const password = req.body.password;
   if (!email || !req.body.password) {
