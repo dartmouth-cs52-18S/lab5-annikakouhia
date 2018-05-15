@@ -7,6 +7,7 @@ dotenv.config({ silent: true });
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: { type: String },
+  username: { type: String },
 }, {
   toJSON: {
     virtuals: true,

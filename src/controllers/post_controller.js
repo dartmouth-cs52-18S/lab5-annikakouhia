@@ -7,6 +7,7 @@ export const createPost = (req, res) => {
   post.contents = req.body.contents;
   post.cover_url = req.body.cover_url;
   post.author = req.user;
+  post.username = req.user.username;
   post.save()
     .then((result) => {
       // res.json({ message: 'Post created!' });
@@ -22,7 +23,6 @@ export const getPosts = (req, res) => {
   Post.find({})
     .then((result) => {
       // res.json({ message: 'found all the posts!' });
-      console.log('got all posts1');
       res.json(result);
     })
     .catch((error) => {
@@ -33,7 +33,6 @@ export const getPosts = (req, res) => {
 export const getPost = (req, res) => {
   Post.findOne({ _id: req.params.id })
     .then((result) => {
-      console.log('got specific post');
       res.json(result);
     })
     .catch((error) => {
@@ -44,7 +43,6 @@ export const getPost = (req, res) => {
 export const deletePost = (req, res) => {
   Post.findOne({ _id: req.params.id, author: req.user }).remove()
     .then((result) => {
-      res.json('another post deleted');
     })
     .catch((error) => {
       res.status(500).json({ error });
@@ -61,7 +59,6 @@ export const updatePost = (req, res) => {
       result.save();
     })
     .then((result) => {
-      console.log('updated post!');
       res.json(result);
     })
     .catch((error) => {

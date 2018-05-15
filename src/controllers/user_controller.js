@@ -15,7 +15,7 @@ export const signup = (req, res, next) => {
   console.log(req.body.password);
   const email = req.body.email;
   // const password = req.body.password;
-  if (!email || !req.body.password) {
+  if (!email || !req.body.password || !req.body.username) {
     return res.status(422).send('You must provide email and password');
   }
 
@@ -25,6 +25,7 @@ export const signup = (req, res, next) => {
       const newUser = new User();
       newUser.email = req.body.email;
       newUser.password = req.body.password;
+      newUser.username = req.body.username;
       return newUser.save();
     })
     .then((result) => {
